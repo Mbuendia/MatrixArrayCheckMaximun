@@ -1,59 +1,66 @@
-function main(){
+  <html>
+      <body>
 
-    function matrixAddition(matrixA, matrixB){
-    (matrixA.length > matrixB.length) ? fillzeroArray(matrixB, matrixB[0].length, Math.abs(matrixA.length - matrixB.length)) : fillzeroArray(matrixA, matrixA[0].length,  Math.abs(matrixA.length - matrixB.length));
-    (matrixA[0].length > matrixB[0].length) ? fillwithzeros(matrixB, matrixA[0].length ) : fillwithzeros(matrixA, matrixB[0].length ) ;
-    return matrixA.map(function(num, i){
-        return num.map(function(sumNum, j){
-            return sumNum + matrixB[i][j];
+      </body>
+      <script>
+      function main(){
+
+        function matrixAddition(matrixA, matrixB){
+        (matrixA.length > matrixB.length) ? fillzeroArray(matrixB, matrixB[0].length, Math.abs(matrixA.length - matrixB.length)) : fillzeroArray(matrixA, matrixA[0].length,  Math.abs(matrixA.length - matrixB.length));
+        (matrixA[0].length > matrixB[0].length) ? fillwithzeros(matrixB, matrixA[0].length ) : fillwithzeros(matrixA, matrixB[0].length ) ;
+        return matrixA.map(function(num, i){
+            return num.map(function(sumNum, j){
+                return sumNum + matrixB[i][j];
+            });
         });
-    });
-    }
-    function sumMatrix(matrixA, matrixB){
-        return matrixAddition(matrixA, matrixB);
-    }
-    function checkMaxValues(arrayValues){
-        var maxValue= 0;
-        var matrixTotal;
-        arrayValues.forEach((pair, index) => {
-            let paircolrow = pair.trim().split(" ");
-            if(paircolrow[0] !== undefined && paircolrow[1]) {
-                let pairCol = paircolrow[0];
-                let pairRow = paircolrow[1];
-                let matrixCreated = new Array(parseInt(pairCol)).fill(1).map(() => new Array(parseInt(pairRow)).fill(1));
-                matrixTotal= (index<=1) ? matrixCreated : sumMatrix(matrixTotal, matrixCreated );
-                
-            }
-
-        })
-        maxValue = checkMatrixMaxValue(matrixTotal);
-
-    return maxValue;
-    } 
-    function fillzeroArray(matrix, length, times) {
-        let auxMatrix = matrix;
-        for(let i =0; i< times; ++i){
-            auxMatrix.push(new Array(length).fill(0));
         }
-        return auxMatrix;
-    }
+        function sumMatrix(matrixA, matrixB){
+            return matrixAddition(matrixA, matrixB);
+        }
+        function checkMaxValues(arrayValues){
+            var maxValue= 0;
+            var matrixTotal;
+            arrayValues.forEach((pair, index) => {
+                let paircolrow = pair.trim().split(" ");
+                if(paircolrow[0] !== undefined && paircolrow[1]) {
+                    let pairCol = paircolrow[0];
+                    let pairRow = paircolrow[1];
+                    let matrixCreated = new Array(parseInt(pairCol)).fill(1).map(() => new Array(parseInt(pairRow)).fill(1));
+                    matrixTotal= (index<=1) ? matrixCreated : sumMatrix(matrixTotal, matrixCreated );
+                    
+                }
 
-    function fillwithzeros(array, length){
-        for(var i =0; i< array.length; ++i){
-            for(var j =0; j< length; ++j){
-                if(array[i][j] === undefined){
-                    array[i][j] = 0;
+            })
+            maxValue = checkMatrixMaxValue(matrixTotal);
+
+        return maxValue;
+        } 
+        function fillzeroArray(matrix, length, times) {
+            let auxMatrix = matrix;
+            for(let i =0; i< times; ++i){
+                auxMatrix.push(new Array(length).fill(0));
+            }
+            return auxMatrix;
+        }
+
+        function fillwithzeros(array, length){
+            for(var i =0; i< array.length; ++i){
+                for(var j =0; j< length; ++j){
+                    if(array[i][j] === undefined){
+                        array[i][j] = 0;
+                    }
                 }
             }
         }
-    }
 
-    function checkMatrixMaxValue(matrix){
-       return Math.max(...matrix.map(e => Array.isArray(e) ? checkMatrixMaxValue(e) : e));
-    }
+        function checkMatrixMaxValue(matrix){
+        return Math.max(...matrix.map(e => Array.isArray(e) ? checkMatrixMaxValue(e) : e));
+        }
 
 
-    return checkMaxValues(['3', '10 4', '29 7', '40 5', '40 120', '40 120']);
-};
+        return checkMaxValues(['3', '10 4', '29 7', '40 5', '40 120', '40 120']);
+        };
 
-document.write(main());
+        document.write(main());
+        </script>
+</html>
